@@ -1,0 +1,384 @@
+<!--
+Ask Layout #1 by 5urprise!
+-->
+<head>
+<script type="text/javascript" src="http://static.tumblr.com/gcjggdm/y0pmroxcl/infinitescrolling.js"></script>
+<script type="text/javascript"
+src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+//
+$('a.poplight[href^=#]').click(function() {
+var popID = $(this).attr('rel'); //Get Popup Name
+var popURL = $(this).attr('href'); //Get Popup href to define size
+var query= popURL.split('?');
+var dim= query[1].split('&');
+var popWidth = dim[0].split('=')[1]; //Gets the first query string value
+$('#' + popID).fadeIn().css({ 'width': Number( popWidth ) }).prepend('<a href="#" class="close"> <class="btn_close" title="Close" alt="Close" /></a>');
+var popMargTop = ($('#' + popID).height() + 80) / 2;
+var popMargLeft = ($('#' + popID).width() + 80) / 2;
+//Apply Margin to Popup
+$('#' + popID).css({
+'margin-top' : -popMargTop,
+'margin-left' : -popMargLeft
+});
+$('body').append('<div id="fade"></div>');
+$('#fade').css({'filter' : 'alpha(opacity=80)'}).fadeIn(); //Fade in the fade layer - .css({'filter' : 'alpha(opacity=80)'})
+return false;
+});
+$('a.close, #fade').live('click', function() {
+$('#fade , .popup_block').fadeOut(function() {
+$('#fade, a.close').remove(); //fade them both out
+});
+return false;
+});
+});
+</script>
+<style type="text/css">
+#fade { /*--Transparent background layer--*/
+display: none; /*--hidden by default--*/
+background: #fff;
+position: fixed; left: 0; top: 0px;
+width: 100%; height: 100%;
+opacity: .5;
+z-index: 9999;
+background-image:url(http://www.hdwallpapersinn.com/wp-content/uploads/2013/10/snowflakes-christmas.jpg);
+}
+.popup_block{
+display: none; /*--hidden by default--*/
+background:#fff;
+padding: 15px;
+border: 5px solid #aaaaaa;
+float: left;
+font-family: "arial";
+color: #000;
+font-size: 13px;
+line-height: 20px;
+position: fixed;
+top: 50%; left: 50%;
+z-index: 99999;
+width:510px;
+border-right:5px solid #FF0000;
+border-bottom:5px solid #FF0000;
+border-top:5px solid #04B404;
+border-left:5px solid #04B404;
+box-shadow: 0px 0px 10px #fff;
+}
+img.btn_close {
+float: right;
+margin: -20 -20px 0 0;
+}
+/*--Making IE6 Understand Fixed Positioning--*/
+*html #fade {
+position: absolute;
+}
+*html .popup_block {
+position: absolute;
+}
+body {
+color: #6E6E6E;
+background-color: #f7f7f7; 
+font-family: times new roman;
+line-height:13px;
+font-size:14px;
+padding: 0px;
+margin: 0px;
+background-image:url(http://i45.tinypic.com/16jhspi.png); 
+background-attachment: fixed;
+background-repeat: repeat;
+}
+#blogtitle{
+position:fixed;
+color:#FF0000;
+text-shadow:2px 3px 2px #00FF00;
+font-family:neverletgo;
+font-size:75px;
+margin-top:80px;
+margin-left:540px;
+z-index:999;
+}
+#border{ 
+z-index:1;
+position: fixed;
+margin-left:180px;
+margin-top:20px;
+width: 1100px;
+height: 600px;
+box-shadow:0px 9px 10px #cdcdcd;
+background:#FAFAFA;
+border: 10px solid #fff;
+}
+
+#link1{
+position:fixed;
+z-index:999;
+background:white;
+margin-top:500px;
+margin-left:240px;
+width:auto;
+height:50px;
+padding:10px;
+border-right:5px solid #FF0000;
+border-bottom:5px solid #FF0000;
+border-top:5px solid #04B404;
+border-left:5px solid #04B404;
+font-family:stars;
+font-size:25px;
+line-height:60px;
+}
+
+#link2{
+position:fixed;
+z-index:999;
+background:white;
+margin-top:500px;
+margin-left:500px;
+width:auto;
+height:50px;
+padding:10px;
+border-right:5px solid #FF0000;
+border-bottom:5px solid #FF0000;
+border-top:5px solid #04B404;
+border-left:5px solid #04B404;
+font-family:stars;
+font-size:25px;
+line-height:60px;
+}
+
+#link3{
+position:fixed;
+z-index:999;
+background:white;
+margin-top:500px;
+margin-left:760px;
+width:auto;
+height:50px;
+padding:10px;
+border-right:5px solid #FF0000;
+border-bottom:5px solid #FF0000;
+border-top:5px solid #04B404;
+border-left:5px solid #04B404;
+font-family:stars;
+font-size:25px;
+line-height:60px;
+}
+
+#link4{
+position:fixed;
+z-index:999;
+background:white;
+margin-top:500px;
+margin-left:980px;
+width:auto;
+height:50px;
+padding:10px;
+border-right:5px solid #FF0000;
+border-bottom:5px solid #FF0000;
+border-top:5px solid #04B404;
+border-left:5px solid #04B404;
+font-family:stars;
+font-size:25px;
+line-height:60px;
+}
+
+#about{
+position:fixed;
+z-index:999;
+background:white;
+padding:10px;
+border-right:5px solid #FF0000;
+border-bottom:5px solid #FF0000;
+border-top:5px solid #04B404;
+border-left:5px solid #04B404;
+font-family:pewp;
+margin-top:130px;
+margin-left:200px;
+width:300px;
+height:150px;
+overflow:auto;
+line-height:17px;
+font-size:15px;
+}
+
+#will{
+position:fixed;
+z-index:999;
+background:white;
+padding:10px;
+border-right:5px solid #FF0000;
+border-bottom:5px solid #FF0000;
+border-top:5px solid #04B404;
+border-left:5px solid #04B404;
+font-family:pewp;
+margin-top:130px;
+margin-left:570px;
+width:300px;
+height:150px;
+overflow:auto;
+line-height:17px;
+font-size:15px;
+}
+
+#wont{
+position:fixed;
+z-index:999;
+background:white;
+padding:10px;
+border-right:5px solid #FF0000;
+border-bottom:5px solid #FF0000;
+border-top:5px solid #04B404;
+border-left:5px solid #04B404;
+font-family:pewp;
+margin-top:130px;
+margin-left:940px;
+width:300px;
+height:150px;
+overflow:auto;
+line-height:17px;
+font-size:15px;
+}
+
+#askbox{
+position:fixed;
+z-index:999;
+background:white;
+padding:10px;
+border-right:5px solid #FF0000;
+border-bottom:5px solid #FF0000;
+border-top:5px solid #04B404;
+border-left:5px solid #04B404;
+font-family:stars;
+margin-top:330px;
+margin-left:610px;
+width:auto;
+height:auto;
+color:#04B404;
+text-shadow:2px 3px 2px #00FF00;
+line-height:87px;
+font-size:45px;
+}
+
+
+a:link, a:active, a:visited{
+text-decoration: none;
+-webkit-transition: all 0.3s linear; 
+-moz-transition: all 0.3s linear; 
+transition: all 0.3s linear;
+color:#6E6E6E;
+}
+ 
+a:hover {
+text-shadow:0 0 10px #000;
+text-decoration:none;
+font-style:;
+color: #fff;
+-webkit-transition: all 0.3slinear; 
+-moz-transition: all 0.3s linear; 
+transition: all 0.3s linear;
+}
+
+::-webkit-scrollbar-thumb{ 
+background-color: #04B404;
+border: 2px solid #f5f5f5;
+height:1px;
+-moz-border-radius: 20px;
+border-radius: 20px; 
+}
+
+::-webkit-scrollbar { 
+height:1px;
+width:9px; 
+background-color: #FF0000;
+border: 4px solid #FFf; 
+}
+
+::selection {
+background: #fff; /* background color of highlighted text*/
+color: #FF0000; /* color of highlighted text*/
+text-shadow: 0 0 3px #00FF00; /*shadow of highlighted text*/
+}
+::-moz-selection {
+background: #fff; /* background color of highlighted
+text*/
+color: #FF0000; /* color of highlighted text*/
+text-shadow: 0 0 3px #00FF00; /*shadow of highlighted text*/
+}
+
+#tree{
+position:fixed;
+z-index:99999999999;
+margin-top:500px;
+margin-left:170px;
+background-image:url(http://www.u.arizona.edu/~patricia/cute-collection/christmas-stuff/tree.gif);
+}
+
+@font-face { font-family: "stars"; src: url('http://static.tumblr.com/hcfbjje/sfRlpm8t0/starsfromoureyes.ttf'); }
+@font-face { font-family: "neverletgo"; src: url('http://static.tumblr.com/q54tzar/o02m2jt6c/neverletgo_3_.ttf'); }
+@font-face { font-family: "pewp"; src: url('http://static.tumblr.com/bepad33/6M6m295eu/delius-regular.ttf'); }
+
+@font-face { font-family: "caviardreams"; src: url('http://static.tumblr.com/4yxykdm/xXTlrecqr/caviardreams.ttf'); }
+
+</style>
+<title>Talk to Me</title>
+<div id="blogtitle">Talk to Me</div>
+<div id="border"></div>
+<!--
+Put your About Me here!
+-->
+<div id="about"><br>
+<center><p><div style="font-family: stars; color:#FF0000;
+text-shadow:2px 3px 2px #00FF00;"><font size="6">About Me:</font></div><p></center>
+Put your about me here! If you write too much than a scrollbar will obviously come to save the day, I love this Christmas-themed ask layout, it's so cute lol. Okay okay okay so I am trying to write a lot to show you an amazing example of the scrollbar, which is so cute omg!!!
+</div>
+<!--
+Put your I Will's here!
+-->
+<div id="will"><br>
+<center><p><div style="font-family: stars; color:#FF0000;
+text-shadow:2px 3px 2px #00FF00;"><font size="6">I will:</font></div><p></center>
+Put your I Will's here! If you write too much than a scrollbar will obviously come to save the day, I love this Christmas-themed ask layout, it's so cute lol. Okay okay okay so I am trying to write a lot to show you an amazing example of the scrollbar, which is so cute omg!!!
+</div>
+<!--
+Put your I Wont's here!
+-->
+<div id="wont"><br>
+<center><p><div style="font-family: stars; color:#FF0000;
+text-shadow:2px 3px 2px #00FF00;"><font size="6">I won't:</font></div><p></center>
+Put your I Wont's here! If you write too much than a scrollbar will obviously come to save the day, I love this Christmas-themed ask layout, it's so cute lol. Okay okay okay so I am trying to write a lot to show you an amazing example of the scrollbar, which is so cute omg!!!
+</div>
+<!--
+Place your links here.
+Replace "Link 1", etc. with the link title. Replace the / with the link. *remember to begin the link with http://
+-->
+<div id="link1">
+<a href="/">Link 1</a>
+</div>
+<div id="link2">
+<a href="/">Link 2</a>
+</div>
+<div id="link3">
+<a href="/">Link 3</a>
+</div>
+<div id="link4">
+<a href="/">Link 4</a>
+</div>
+
+<div id="tree"></div>
+
+<div id="askbox">
+<a href="#?w=420"rel="03" class="poplight">Askbox</a>
+</div>
+<body onkeydown="return false">
+</body>
+<div style="position:fixed; z-index:9999999999999;bottom:5px; right:5px; background:white; border: 1px solid #cdcdcd; padding: 3px; padding-top: 0px; font-size: 15px; line-height: 20px;"><a href="http://5urprise.tumblr.com"title="Layout by 5urprise!!!">✿</a></div>
+<div id="03" class="popup_block">
+<div style="
+width:auto;height:auto;padding:20px;font-family:caviardreams;font-size:32px;margin-top:-8px;line-height:12px;color:#FF0000;
+text-shadow:2px 3px 2px #00FF00; text-align:center;" >
+Did you read the FAQ?
+</div>
+
+
+
+<div style="padding:10px;margin-top:-45px;margin-left:-10px"><br><br><p></font><iframe frameborder="0" scrolling="no" width="430" height="190" src="http://www.tumblr.com/ask_form/{name}.tumblr.com" style="background-color:transparent; overflow:hidden;" id="ask_form">
+</center></div></iframe></div>
