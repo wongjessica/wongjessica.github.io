@@ -2,3 +2,11 @@ body {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     background-color: rgb(193, 220, 255);
 }
+
+#rock {
+    width: max-content;
+    height: 500px;
+    background: white;
+    padding: 20px;
+    border: 4px double #cdcdcd;
+}
