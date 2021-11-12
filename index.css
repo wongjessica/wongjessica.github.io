@@ -1,6 +1,8 @@
 body {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     background-color: rgb(193, 220, 255);
+    position: relative;
+    width:100%;
 }
 
 #rock {
@@ -10,3 +12,7 @@ body {
     padding: 20px;
     border: 4px double #cdcdcd;
 }
+
+html, body {
+    overflow-x: hidden;
+  }
