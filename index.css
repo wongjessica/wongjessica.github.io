@@ -16,3 +16,19 @@ body {
 html, body {
     overflow-x: hidden;
   }
+
+a {
+    color: blue;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+a:hover {
+    color: white;
+    background: black;
+    padding: 2px;
+    border: 2px solid #cdcdcd;
+    -webkit-transition: color 0.3s ease-out;
+    -moz-transition: color 0.3s ease-out;
+    transition: color 0.3s ease-out;
+}
