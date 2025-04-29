@@ -65,11 +65,15 @@ const HomePage = () => {
         <div style={{ maxWidth: '72rem', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
           <div style={{ marginBottom: '2rem' }}>
             <h1 style={{ fontSize: '3rem', fontWeight: 'bold', marginBottom: '1rem' }}>Hi, I'm Jessica</h1>
-            <p style={{ fontSize: '1.125rem', opacity: '0.9', marginBottom: '1.5rem' }}>Software engineer, web developer, puzzle enthusiast, and creative problem solver.</p>
+            <p style={{ fontSize: '1.125rem', opacity: '0.9', marginBottom: '1.5rem' }}>
+                NYC-based Software engineer, web developer, puzzle enthusiast, and creative problem solver.
+                <br></br>
+                Passionate about creating communities to cultivate friendships and help others.
+            </p>
             <button style={{ backgroundColor: 'white', color: '#6366f1', padding: '0.5rem 1.5rem', borderRadius: '0.375rem', border: 'none', fontWeight: '500' }}>Get in touch</button>
           </div>
           <div>
-            <img src="/api/placeholder/400/400" alt="Jessica" style={{ width: '16rem', height: '16rem', borderRadius: '50%', border: '4px solid white', boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)' }} />
+            <img src="https://i.postimg.cc/TwndmwKS/image.png" alt="Jessica" style={{ width: '16rem', height: '16rem', borderRadius: '50%', border: '4px solid white', boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)' }} />
           </div>
         </div>
       </section>
@@ -79,7 +83,7 @@ const HomePage = () => {
         <div style={{ maxWidth: '48rem', margin: '0 auto', textAlign: 'center' }}>
           <h2 style={{ fontSize: '1.875rem', fontWeight: 'bold', color: '#1f2937', marginBottom: '1.5rem' }}>About Me</h2>
           <p style={{ fontSize: '1.125rem', color: '#4b5563', marginBottom: '2rem' }}>
-            I'm a front-end developer with a passion for creating interactive web experiences.
+            I'm a full-stack software engineer based in NYC with a passion for creating interactive full-stack web experiences and simply just having fun with my passion.
             I love designing and building web applications that are both beautiful and functional.
             When I'm not coding, you can find me creating puzzles and games that challenge the mind.
           </p>
@@ -91,7 +95,7 @@ const HomePage = () => {
       <section style={gamesStyle}>
         <div style={{ maxWidth: '80rem', margin: '0 auto' }}>
           <h2 style={{ fontSize: '1.875rem', fontWeight: 'bold', color: '#1f2937', marginBottom: '0.5rem', textAlign: 'center' }}>Jessica's Games</h2>
-          <p style={{ fontSize: '1.125rem', color: '#4b5563', marginBottom: '3rem', textAlign: 'center' }}>A collection of web-based puzzles and games I've created</p>
+          <p style={{ fontSize: '1.125rem', color: '#4b5563', marginBottom: '3rem', textAlign: 'center' }}>A collection of web-based puzzles and games I've created and programmed.</p>
           
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(20rem, 1fr))', gap: '2rem' }}>
             {/* Game 1: Color Matching */}
@@ -147,7 +151,10 @@ const HomePage = () => {
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
             <div style={{ marginBottom: '1.5rem' }}>
               <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>Jessica</h2>
-              <p style={{ color: '#9ca3af' }}>Software Engineer, Web Developer & Game Designer, Creative Enthusiast</p>
+              <p style={{ color: '#9ca3af' }}>NYC Software Engineer, Web Developer & Game Designer, Creative Enthusiast
+              <br></br><br></br>
+                Passionate about creating communities to cultivate friendships and help others.
+              </p>
             </div>
             <div style={{ display: 'flex', gap: '1.5rem', marginBottom: '2rem' }}>
               <a href="https://github.com" style={{ color: '#9ca3af' }}>
