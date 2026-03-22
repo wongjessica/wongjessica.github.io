@@ -2,7 +2,7 @@ export const about = {
   name: "Jessica Wong",
   title: "Software Engineer",
   location: "New York City",
-  bio: "Hi! I am a software engineer based in NYC with 10+ years of coding experience and 4+ years of full-time professional industry experience. My dream is to innovate creative ideas for products and apps that benefit society.",
+  bio: "Hi! I am a software engineer based in NYC with 10+ years of coding experience and 4+ years of professional industry experience. I specialize in full stack development, data engineering, and forward deployed engineering, working across the ad tech stack with tools like React, Next.js, Flask, Snowflake, Databricks, and Airflow. My dream is to innovate creative ideas for products and apps that benefit society.",
   email: "jessica@jessicawong.dev",
   github: "https://github.com/wongjessica",
   linkedin: "https://www.linkedin.com/in/jessicawongdev/",
