@@ -25,7 +25,7 @@ export default function About() {
               <p className="text-gray-600 leading-relaxed">
                 I'm passionate about building technology that makes a positive impact.
                 With experience spanning full-stack development, data engineering,
-                cybersecurity education, and even working with NASA, I bring a diverse
+                and cybersecurity education, I bring a diverse
                 perspective to every project I work on.
               </p>
             </div>
