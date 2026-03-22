@@ -16,7 +16,7 @@ export const experience = [
     period: "Sep 2024 - Present",
     location: "New York City Metropolitan Area · Hybrid",
     description: [
-      "Built and shipped 3 production UIs end-to-end from wireframing through deployment.",
+      "Built and shipped 5+ production UIs end-to-end from wireframing through deployment.",
       "Migrated AI Insights app from Streamlit to React/Next.js + Flask with Snowflake backend, featuring interactive heatmaps, session-based caching, and PDF export.",
       "Managed data pipelines for 15+ advertising clients across Snowflake, Databricks, Airflow, and multiple DSPs (TTD, DV360, Meta, Index Exchange, OpenX).",
       "Created 15+ Metaplane data quality monitors with automated Slack alerting across all client audience segments.",
