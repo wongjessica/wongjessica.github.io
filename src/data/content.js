@@ -16,7 +16,14 @@ export const experience = [
     period: "Sep 2024 - Present",
     location: "New York City Metropolitan Area · Hybrid",
     description: [
-      "Full Stack Software Development, Forward Deployed Engineering, and Data Engineering",
+      "Built and shipped 3 production UIs (AI Allocator Geopacing, Budget, Deal Creation) end-to-end from wireframing through deployment.",
+      "Migrated AI Insights app from Streamlit to React/Next.js + Flask with Snowflake backend, featuring interactive heatmaps, session-based caching, and PDF export.",
+      "Managed data pipelines for 15+ advertising clients across Snowflake, Databricks, Airflow, and multiple DSPs (TTD, DV360, Meta, Index Exchange, OpenX).",
+      "Created 15+ Metaplane data quality monitors with automated Slack alerting across all client audience segments.",
+      "Deployed container models and audience segments to 10+ clients across OpenX and Index Exchange, including Capital One, Apple, and United Airlines.",
+      "Led Index Exchange API migration from v2 to v3 for the Deal Creation UI.",
+      "Authored Forward Deployed Engineering Run Book and 6+ technical documentation pieces; onboarded 2 new engineers.",
+      "Participated in IAB Programmatic Supply Chain Working Group, contributing to industry standards.",
     ],
   },
   {
@@ -117,10 +124,10 @@ export const volunteerWork = [
 ];
 
 export const skills = {
-  languages: ["C++", "HTML/CSS", "JavaScript", "Java", "Python", "SQL", "PHP", "TypeScript"],
-  frameworks: ["React", "Redux", "Django", "Flask", "Express", "Material-UI", "Tailwind CSS", "SCSS"],
-  tools: ["Git", "Docker", "GCP", "Jenkins", "Jira", "Postman", "Tableau", "Linux"],
-  concepts: ["Full Stack Development", "Data Engineering", "Cybersecurity", "Agile", "CI/CD", "Accessibility", "Load Testing"],
+  languages: ["Python", "JavaScript", "TypeScript", "SQL", "HTML/CSS", "Java", "C++", "PHP"],
+  frameworks: ["React", "Next.js", "Flask", "Django", "Redux", "Streamlit", "Express", "Tailwind CSS"],
+  tools: ["Snowflake", "Databricks", "Apache Airflow", "AWS", "Docker", "Git", "GitHub Actions", "Metaplane", "Datadog", "GCP", "Jira", "Postman", "Figma", "Superset", "Tableau"],
+  concepts: ["Full Stack Development", "Data Engineering", "Forward Deployed Engineering", "Ad Tech / DSPs", "CI/CD", "Data Quality Monitoring", "Cybersecurity", "Agile", "Accessibility"],
 };
 
 export const projects = [
