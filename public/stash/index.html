@@ -1690,9 +1690,7 @@
     var ct = document.getElementById("clearTag");
     if (ct) ct.addEventListener("click", function () { activeTag = null; render(); });
     var cq = document.getElementById("clearQuery");
-    if (cq) cq.addEventListener("click", function () {
-      query = ""; findInput.value = ""; findWrap.classList.remove("filled"); render();
-    });
+    if (cq) cq.addEventListener("click", function () { clearSearch(); render(); });
   }
 
   var GRIP = '<span class="grip" draggable="true" title="Drag onto a project to file it"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><circle cx="9" cy="6" r="1.5"/><circle cx="15" cy="6" r="1.5"/><circle cx="9" cy="12" r="1.5"/><circle cx="15" cy="12" r="1.5"/><circle cx="9" cy="18" r="1.5"/><circle cx="15" cy="18" r="1.5"/></svg></span>';
@@ -2311,6 +2309,11 @@
   // ---------- Search ----------
   var findInput = document.getElementById("findInput");
   var findWrap = document.getElementById("findWrap");
+  function clearSearch() {
+    query = "";
+    findInput.value = "";
+    findWrap.classList.remove("filled");
+  }
   findInput.addEventListener("input", function () {
     query = this.value.trim();
     findWrap.classList.toggle("filled", !!this.value);
@@ -2336,42 +2339,161 @@
   viewList.addEventListener("click", function () { setView("list"); });
 
   // ---------- Export ----------
-  document.getElementById("exportBtn").addEventListener("click", function () {
-    var data = { app: "stash", version: 3, exportedAt: new Date().toISOString(),
-                 theme: palette, projects: projects, snippets: snippets };
-    var blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
-    var url = URL.createObjectURL(blob);
-    var a = document.createElement("a");
-    a.href = url; a.download = "stash-backup.json";
-    document.body.appendChild(a); a.click(); a.remove();
-    URL.revokeObjectURL(url);
-    toast("Backup downloaded");
-  });
+  // Inside the artifact frame a synthetic <a download> click is blocked by the
+  // sandbox, so ask the host to save the file. Everywhere else (own domain,
+  // opened from disk) the anchor works. If neither can, hand over the JSON.
+  function backupJSON() {
+    return JSON.stringify({
+      app: "stash", version: 3, exportedAt: new Date().toISOString(),
+      theme: palette, projects: projects, snippets: snippets
+    }, null, 2);
+  }
+
+  function exportBackup() {
+    var json = backupJSON();
+    var saver = window.claude && window.claude.downloads;
+    if (saver && typeof saver.save === "function") {
+      saver.save({ filename: "stash-backup.json", data: json }).then(function () {
+        toast("Backup saved");
+      }, function (err) {
+        var code = (err && err.code) || "unavailable";
+        if (code === "declined") { toast("Backup cancelled"); return; }
+        if (code === "rate_limited") { toast("A save prompt is already open"); return; }
+        if (code === "too_large") {
+          showBackupText(json, "This stash is past the 16 MB save limit. Copy it and save it yourself:");
+          return;
+        }
+        anchorExport(json);
+      });
+      return;
+    }
+    anchorExport(json);
+  }
+
+  function anchorExport(json) {
+    if (window === window.top) {
+      try {
+        var blob = new Blob([json], { type: "application/json" });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement("a");
+        a.href = url;
+        a.download = "stash-backup.json";
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(function () { URL.revokeObjectURL(url); }, 2000);
+        toast("Backup downloaded");
+        return;
+      } catch (e) { /* fall through */ }
+    }
+    showBackupText(json, "Saving a file is blocked here. Copy this and save it as stash-backup.json:");
+  }
+
+  function showBackupText(json, why) {
+    var ov = document.createElement("div");
+    ov.className = "overlay";
+    ov.innerHTML =
+      '<div class="sheet" role="dialog" aria-modal="true" aria-label="Backup">' +
+        '<div class="sheet-head"><h2>Backup</h2>' +
+          '<button class="icon-btn" id="bClose" aria-label="Close"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>' +
+        '</div>' +
+        '<div class="sheet-body">' +
+          '<div class="ask-text">' + esc(why) + '</div>' +
+          '<textarea class="control code-input" id="bText" readonly spellcheck="false"></textarea>' +
+        '</div>' +
+        '<div class="sheet-foot"><span class="gap"></span>' +
+          '<button class="btn" id="bCopy">' + COPY_ICON + '<span>Copy JSON</span></button>' +
+        '</div>' +
+      '</div>';
+    document.body.appendChild(ov);
+    var ta = ov.querySelector("#bText");
+    ta.value = json;                      // value, not markup — no escaping games
+    var close = function () { ov.remove(); document.removeEventListener("keydown", onKey); };
+    function onKey(e) { if (e.key === "Escape") { e.preventDefault(); close(); } }
+    document.addEventListener("keydown", onKey);
+    ov.addEventListener("mousedown", function (e) { if (e.target === ov) close(); });
+    ov.querySelector("#bClose").addEventListener("click", close);
+    var btn = ov.querySelector("#bCopy");
+    btn.addEventListener("click", function () { copyCode({ code: json }, btn); });
+    ta.setSelectionRange(0, 0);
+    ta.scrollTop = 0;
+    btn.focus();
+  }
+
+  document.getElementById("exportBtn").addEventListener("click", exportBackup);
 
   // ---------- Import ----------
+  // Offers a file picker and a paste box, so a blocked picker is never a dead end.
   var importFile = document.getElementById("importFile");
-  document.getElementById("importBtn").addEventListener("click", function () {
-    importFile.value = "";
-    importFile.click();
-  });
+
+  function openImport() {
+    var ov = document.createElement("div");
+    ov.className = "overlay";
+    ov.innerHTML =
+      '<div class="sheet" role="dialog" aria-modal="true" aria-label="Import backup">' +
+        '<div class="sheet-head"><h2>Import backup</h2>' +
+          '<button class="icon-btn" id="iClose" aria-label="Close"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>' +
+        '</div>' +
+        '<div class="sheet-body">' +
+          '<div class="ask-text">Pick a <b>stash-backup.json</b> file, or paste one in. Nothing changes until you choose merge or replace.</div>' +
+          '<button class="btn quiet" id="iPick" style="align-self:flex-start">Choose a file…</button>' +
+          '<div class="field"><label for="iText">Or paste the backup JSON</label>' +
+            '<textarea class="control code-input" id="iText" spellcheck="false" placeholder=\'{ "app": "stash", … }\'></textarea></div>' +
+        '</div>' +
+        '<div class="sheet-foot"><span class="gap"></span>' +
+          '<button class="btn quiet" id="iCancel">Cancel</button>' +
+          '<button class="btn" id="iRead">Read it</button>' +
+        '</div>' +
+      '</div>';
+    document.body.appendChild(ov);
+    var close = function () { ov.remove(); document.removeEventListener("keydown", onKey); };
+    function onKey(e) { if (e.key === "Escape") { e.preventDefault(); close(); } }
+    document.addEventListener("keydown", onKey);
+    ov.addEventListener("mousedown", function (e) { if (e.target === ov) close(); });
+    ov.querySelector("#iClose").addEventListener("click", close);
+    ov.querySelector("#iCancel").addEventListener("click", close);
+    ov.querySelector("#iPick").addEventListener("click", function () {
+      importFile.value = "";
+      importFile.click();
+    });
+    ov.querySelector("#iRead").addEventListener("click", function () {
+      var text = ov.querySelector("#iText").value.trim();
+      if (!text) { toast("Paste a backup first, or choose a file"); return; }
+      if (readBackup("pasted text", text)) close();
+    });
+    importSheet = { close: close };
+  }
+  var importSheet = null;
+
+  // Returns true when the text parsed into something importable.
+  function readBackup(sourceName, text) {
+    var data;
+    try { data = JSON.parse(text); }
+    catch (e) { toast("That isn’t valid JSON"); return false; }
+    var incoming = (data && Array.isArray(data.snippets)) ? data.snippets : (Array.isArray(data) ? data : null);
+    if (!incoming) { toast("No snippets found in there"); return false; }
+    var clean = incoming.map(normalize).filter(function (s) { return s && (s.code || s.title); });
+    if (!clean.length) { toast("No snippets found in there"); return false; }
+    var incProjects = (data && Array.isArray(data.projects) ? data.projects : []).filter(function (p) {
+      return typeof p === "string" && p;
+    });
+    var incTheme = (data && data.theme && typeof data.theme === "object") ? validPalette(data.theme) : null;
+    askImport(sourceName, clean, incProjects, incTheme);
+    return true;
+  }
+
+  document.getElementById("importBtn").addEventListener("click", openImport);
+
   importFile.addEventListener("change", function () {
     var file = this.files && this.files[0];
     if (!file) return;
     var reader = new FileReader();
     reader.onerror = function () { toast("Could not read that file"); };
     reader.onload = function () {
-      var data;
-      try { data = JSON.parse(String(reader.result)); }
-      catch (e) { toast("That file isn’t valid JSON"); return; }
-      var incoming = (data && Array.isArray(data.snippets) ? data.snippets : Array.isArray(data) ? data : null);
-      if (!incoming) { toast("No snippets found in that file"); return; }
-      var clean = incoming.map(normalize).filter(function (s) { return s && (s.code || s.title); });
-      if (!clean.length) { toast("No snippets found in that file"); return; }
-      var incProjects = (data && Array.isArray(data.projects) ? data.projects : []).filter(function (p) {
-        return typeof p === "string" && p;
-      });
-      var incTheme = (data && data.theme && typeof data.theme === "object") ? validPalette(data.theme) : null;
-      askImport(file.name, clean, incProjects, incTheme);
+      if (readBackup(file.name, String(reader.result)) && importSheet) {
+        importSheet.close();
+        importSheet = null;
+      }
     };
     reader.readAsText(file);
   });
@@ -2409,7 +2531,7 @@
 
   // ---------- Bar buttons ----------
   document.getElementById("newBtn").addEventListener("click", function () { openForm(null); });
-  allItem.addEventListener("click", function () { selectProject("__all__"); });
+  allItem.addEventListener("click", function () { clearSearch(); selectProject("__all__"); });
   todoItem.addEventListener("click", function () { selectProject("__todos__"); });
   addDropTarget(allItem, ""); // drop here to unfile a snippet
 
