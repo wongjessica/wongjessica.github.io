@@ -44,6 +44,15 @@ export default function Navbar() {
               </Link>
             </li>
           ))}
+          {/* Its own page in public/stash, so a real link rather than a scroll target */}
+          <li>
+            <a
+              href="/stash/"
+              className="text-gray-600 hover:text-primary transition-colors text-sm font-medium"
+            >
+              Stash
+            </a>
+          </li>
         </ul>
 
         {/* Mobile toggle */}
@@ -74,6 +83,14 @@ export default function Navbar() {
                 </Link>
               </li>
             ))}
+            <li>
+              <a
+                href="/stash/"
+                className="text-gray-600 hover:text-primary transition-colors text-sm font-medium block"
+              >
+                Stash
+              </a>
+            </li>
           </ul>
         </div>
       )}
