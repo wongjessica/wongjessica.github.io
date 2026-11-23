@@ -53,6 +53,14 @@ export default function Navbar() {
               Stash
             </a>
           </li>
+          <li>
+            <a
+              href="/recipes/"
+              className="text-gray-600 hover:text-primary transition-colors text-sm font-medium"
+            >
+              Recipes
+            </a>
+          </li>
         </ul>
 
         {/* Mobile toggle */}
@@ -89,6 +97,14 @@ export default function Navbar() {
                 className="text-gray-600 hover:text-primary transition-colors text-sm font-medium block"
               >
                 Stash
+              </a>
+            </li>
+            <li>
+              <a
+                href="/recipes/"
+                className="text-gray-600 hover:text-primary transition-colors text-sm font-medium block"
+              >
+                Recipes
               </a>
             </li>
           </ul>

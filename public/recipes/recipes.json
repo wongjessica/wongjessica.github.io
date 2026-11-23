@@ -1,0 +1,30 @@
+[
+  {
+    "id": "thit-kho-trung",
+    "example": true,
+    "nameVi": "Thịt kho trứng",
+    "nameEn": "Caramelized pork belly and eggs",
+    "category": "kho",
+    "serves": 4,
+    "timeMin": 120,
+    "story": "Example entry showing the format. Replace it with Mom's version.",
+    "ingredients": [
+      "800 g ba chỉ (pork belly), cut in large cubes",
+      "6 trứng gà (eggs), boiled and peeled",
+      "3 muỗng canh nước mắm (3 tbsp fish sauce)",
+      "2 muỗng canh đường (2 tbsp sugar), for the caramel",
+      "1 trái dừa tươi (1 young coconut), the juice",
+      "4 tép tỏi, 2 củ hành tím (4 garlic cloves, 2 shallots), minced"
+    ],
+    "steps": [
+      "Marinate the pork with the fish sauce, garlic and shallots for 30 minutes.",
+      "Melt the sugar in a dry pot until it turns dark amber.",
+      "Add the pork and stir until every piece is coated and browned.",
+      "Pour in the coconut juice, bring to a boil and skim the foam.",
+      "Add the eggs and simmer uncovered for about 90 minutes, until the pork is tender."
+    ],
+    "servedWith": "Cơm trắng, dưa giá",
+    "momNote": "Example note. Mom's own tips go here.",
+    "photo": ""
+  }
+]
